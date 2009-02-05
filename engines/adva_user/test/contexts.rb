@@ -16,6 +16,13 @@ class Test::Unit::TestCase
     end
   end
   
+  share :a_user_with_relationship do
+    before do
+      @user = User.find_by_first_name('a user')
+      @relationship = @user.relationships.first
+    end
+  end
+  
   def valid_user_params
     { :first_name      => 'first name',
       :last_name       => 'last name',
