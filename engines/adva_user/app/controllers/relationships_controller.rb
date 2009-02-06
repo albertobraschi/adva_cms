@@ -7,11 +7,12 @@ class RelationshipsController < BaseController
   authenticates_anonymous_user
   
   def index
-    @relationships = current_user.relationships
+    @relationships = current_user.relationships.accepted
   end
-  
-  def show
-  end
+
+  # FIXME does this actually have any function to relationships?
+  # def show
+  # end
   
   def create
     if Relationship.request(current_user, @user)

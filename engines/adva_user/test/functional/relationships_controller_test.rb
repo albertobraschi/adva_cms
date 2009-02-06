@@ -16,12 +16,12 @@ class RelationshipsControllerTest < ActionController::TestCase
     it_renders_template 'relationships/index'
   end
   
-  describe "GET to show" do
-    action { get :show, { :id => @relationship.id} }
-    
-    it_assigns :relationship
-    it_renders_template 'relationships/show'
-  end
+  # describe "GET to show" do
+  #   action { get :show, { :id => @relationship.id} }
+  #   
+  #   it_assigns :relationship
+  #   it_renders_template 'relationships/show'
+  # end
   
   describe "GET to edit" do
     action { get :edit, edit_relationship_params }
