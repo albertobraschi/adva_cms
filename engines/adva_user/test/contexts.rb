@@ -23,6 +23,20 @@ class Test::Unit::TestCase
     end
   end
   
+  share :accepted_relationship do
+    before do
+      @relationship.request_accept
+    end
+  end
+  
+  share :cancelled_relationship do
+    before do
+      user      = @relationship.user
+      relation  = @relationship.relation
+      Relationship.find_by_user_id_and_relation_id(relation, user).delete
+    end
+  end
+  
   def valid_user_params
     { :first_name      => 'first name',
       :last_name       => 'last name',

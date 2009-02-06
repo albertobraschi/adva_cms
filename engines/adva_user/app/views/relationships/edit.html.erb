@@ -1,0 +1,14 @@
+<h2>Relationship request</h2>
+
+<% form_for :relationship, @relationship, :url => relationship_path(@relationship), :html => {:method => :put} do |f| %>
+	<p>
+		<%= @relationship.user.name %> has made a relationship request to you.
+	</p>
+	
+	<p>
+		Accept: 	<%= radio_button_tag :confirmation, Relationship::ACCEPTED %>
+		Decline: 	<%= radio_button_tag :confirmation, Relationship::DECLINED %>
+	</p>
+	
+	<%= f.submit 'Save' %>
+<% end -%>

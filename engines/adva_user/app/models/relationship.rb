@@ -5,6 +5,7 @@ class Relationship < ActiveRecord::Base
   ACCEPTED  = 'accepted'
   REQUESTED = 'requested'
   PENDING   = 'pending'
+  DECLINED  = 'declined'
   
   def self.request(user, requested_user, kind = :symmetric)
     return false if (user == requested_user) || Relationship.exists?(user, requested_user)
@@ -24,7 +25,7 @@ class Relationship < ActiveRecord::Base
   end
   
   def request_accept
-    return false unless pending?
+    return false unless pending? && Relationship.exists?(relation, user)
     
     transaction do
       Relationship.instance(relation, user).update_attribute(:state, ACCEPTED)

@@ -26,3 +26,5 @@ map.user_roles             'users/:user_id/roles.:format',
 map.user_object_roles      'users/:user_id/roles/:object_type/:object_id.:format',
                            :controller  => 'roles'
 
+map.resources              :relationships,
+                           :controller => 'relationship'
