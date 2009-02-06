@@ -18,10 +18,6 @@ class UserTest < ActiveSupport::TestCase
     @user.should have_many(:sites)
   end
   
-  test "has many relationships" do
-    @user.should have_many(:relationships)
-  end
-  
   test "has many memberships" do
     @user.should have_many(:memberships)
   end

@@ -7,7 +7,20 @@ class User < ActiveRecord::Base
 
   has_many :sites, :through => :memberships
   has_many :memberships, :dependent => :delete_all
-  has_many :relationships, :dependent => :delete_all
+  has_many :relationships, :dependent => :delete_all do
+    def accepted
+      find(:all, :conditions => ['relationships.state = ?', Relationship::ACCEPTED])
+    end
+    
+    def pending
+      find(:all, :conditions => ['relationships.state = ?', Relationship::PENDING])
+    end
+    
+    def requested
+      find(:all, :conditions => ['relationships.state = ?', Relationship::REQUESTED])
+    end
+  end
+  
   has_many :subscriptions, :dependent => :destroy
   has_many :roles, :dependent => :delete_all, :class_name => 'Rbac::Role::Base' do
     def by_context(object)
