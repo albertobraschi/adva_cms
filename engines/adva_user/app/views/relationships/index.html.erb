@@ -6,7 +6,7 @@
 	<div id="<%= dom_id(relationship) %>">
 		<p>
 			Relation ship: <%= relationship.relation.name %>
-			<%= link_to 'End relationship', :id => dom_id(relationship) + '_delete', :method => :delete,
+			<%= link_to 'End relationship', relationship_path(relationship), :id => dom_id(relationship) + '_delete', :method => :delete,
 		    :confirm => "Are you sure you want to end this relationship?" %>
 		</p>
 	</div>

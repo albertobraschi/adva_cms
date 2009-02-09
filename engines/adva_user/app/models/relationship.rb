@@ -61,6 +61,10 @@ class Relationship < ActiveRecord::Base
     state == PENDING || state == REQUESTED
   end
   
+  def accepted?
+    state == ACCEPTED
+  end
+  
   protected
     def self.symmetric_request(user, requested_user)
       transaction do
