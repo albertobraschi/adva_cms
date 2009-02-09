@@ -20,6 +20,7 @@ class Test::Unit::TestCase
   include RR::Adapters::TestUnit
   
   def setup_with_test_setup
+    ActionMailer::Base.deliveries.clear
     setup_without_test_setup
     start_db_transaction!
     setup_page_caching!
