@@ -44,6 +44,7 @@ class RelationshipsControllerTest < ActionController::TestCase
     it_assigns :user => User
     it_assigns_flash_cookie :notice => :not_nil
     it_redirects_to { relationships_path }
+    it_triggers_event :relationship_requested
   end
   
   describe "POST to create, with invalid params" do
@@ -52,6 +53,7 @@ class RelationshipsControllerTest < ActionController::TestCase
     it_assigns :user => User
     it_assigns_flash_cookie :error => :not_nil
     it_redirects_to { relationships_path }
+    it_does_not_trigger_any_event
   end
   
   describe "POST to update, with accepted confirmation" do
@@ -61,6 +63,7 @@ class RelationshipsControllerTest < ActionController::TestCase
     it_assigns :relationship
     it_assigns_flash_cookie :notice => :not_nil
     it_redirects_to { relationships_path }
+    it_triggers_event :relationship_accepted
   end
   
   describe "POST to update, with accepted confirmation, but with already accepted relationship" do
@@ -71,6 +74,7 @@ class RelationshipsControllerTest < ActionController::TestCase
       it_assigns :relationship
       it_assigns_flash_cookie :error => :not_nil
       it_renders_template 'relationships/edit'
+      it_does_not_trigger_any_event
     end
   end
   
@@ -82,6 +86,7 @@ class RelationshipsControllerTest < ActionController::TestCase
       it_assigns :relationship
       it_assigns_flash_cookie :error => :not_nil
       it_renders_template 'relationships/edit'
+      it_does_not_trigger_any_event
     end
   end
   
@@ -92,6 +97,7 @@ class RelationshipsControllerTest < ActionController::TestCase
     it_assigns :relationship
     it_assigns_flash_cookie :notice => :not_nil
     it_redirects_to { relationships_path }
+    it_triggers_event :relationship_declined
   end
   
   describe "POST to update, with declined confirmation, but with already accepted relationship" do
@@ -102,6 +108,7 @@ class RelationshipsControllerTest < ActionController::TestCase
       it_assigns :relationship
       it_assigns_flash_cookie :error => :not_nil
       it_renders_template 'relationships/edit'
+      it_does_not_trigger_any_event
     end
   end
   
@@ -113,6 +120,7 @@ class RelationshipsControllerTest < ActionController::TestCase
       it_assigns :relationship
       it_assigns_flash_cookie :error => :not_nil
       it_renders_template 'relationships/edit'
+      it_does_not_trigger_any_event
     end
   end
   
@@ -123,6 +131,7 @@ class RelationshipsControllerTest < ActionController::TestCase
     it_assigns :relationship
     it_assigns_flash_cookie :error => :not_nil
     it_renders_template 'relationships/edit'
+    it_does_not_trigger_any_event
   end
   
   describe "DELETE to destroy" do
@@ -131,6 +140,7 @@ class RelationshipsControllerTest < ActionController::TestCase
     it_assigns :relationship
     it_assigns_flash_cookie :notice => :not_nil
     it_redirects_to { relationships_path }
+    it_triggers_event :relationship_ended
   end
   
   def relationship_request

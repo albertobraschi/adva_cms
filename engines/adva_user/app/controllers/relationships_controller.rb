@@ -16,6 +16,7 @@ class RelationshipsController < BaseController
   
   def create
     if Relationship.request(current_user, @user)
+      trigger_events Relationship.instance(current_user, @user), :requested
       flash[:notice] = "Request was successfully sent to #{@user.name}."
     else
       flash[:error] = "Sending a request to #{@user.name} failed."
@@ -37,6 +38,7 @@ class RelationshipsController < BaseController
   
   def request_accept
     if @relationship.request_accept
+      trigger_event @relationship, :accepted
       flash[:notice] = "Request was successfully accepted!"
       redirect_to (params[:return_to] || relationships_path)
     else
@@ -47,6 +49,7 @@ class RelationshipsController < BaseController
   
   def request_decline
     if @relationship.request_decline
+      trigger_event @relationship, :declined
       flash[:notice] = "Request was successfully declined!"
       redirect_to (params[:return_to] || relationships_path)
     else
@@ -57,6 +60,7 @@ class RelationshipsController < BaseController
   
   def destroy
     if @relationship.remove
+      trigger_event @relationship, :ended, :user => current_user
       flash[:notice] = "Relationship was successfully deleted!"
     else
       flash[:error] = "Deleting of the relationship failed!"
