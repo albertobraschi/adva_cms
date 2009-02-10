@@ -20,6 +20,8 @@ map.resources :users,      :path_prefix => "admin/sites/:site_id",
                            :name_prefix => "admin_site_",
                            :namespace   => "admin/"
 
+map.resources  :profiles,  :controller  => 'profiles'
+
 map.user_roles             'users/:user_id/roles.:format',
                            :controller  => 'roles'
 

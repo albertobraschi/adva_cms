@@ -14,7 +14,7 @@ var LoginLinks = {
 		var user_id = Cookie.get('uid');
 		var user_name = unescape(Cookie.get('uname')).replace(/\+/g, " ");
 		try { 
-			this.update_user_links(user_name) 
+			this.update_user_links(user_name, user_id) 
 		} catch(err) {}
 		if (user_id) {
 			try { 
@@ -24,10 +24,11 @@ var LoginLinks = {
 		}
 	},
 
-	update_user_links: function(user_name) {
+	update_user_links: function(user_name, user_id) {
 		if($('logout_link'))   $('logout_link').href = $('logout_link').href.replace(/{return_to}/, escape(document.location.href));
 		if($('login_link'))    $('login_link').href = $('login_link').href.replace(/{return_to}/, escape(document.location.href));
-		if($('messages_link')) $('messages_link').update(user_name);
+		if($('profile_link'))  $('profile_link').update(user_name);
+		if($('profile_link'))  $('profile_link').href = $('profile_link').href.replace(/{user_id}/, user_id);
 	}
 }
 

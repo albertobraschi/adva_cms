@@ -22,7 +22,7 @@
         </p>
         <p id="logout_links" class="navigation" style="display: none;">
           &middot; 
-          <%= t(:'adva.users.info.logged_in_as', :name => '<a id="messages_link" href="/messages">{user_name}</a>') %> &middot;
+          <%= t(:'adva.users.info.logged_in_as', :name => '<a id="profile_link" href="/profiles/{user_id}">{user_name}</a>') %> &middot;
 					<a id="logout_link" href="/logout?return_to={return_to}">Logout</a>
         </p>
         <%= render :widget => :sections %>

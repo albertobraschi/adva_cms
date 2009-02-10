@@ -1,0 +1,23 @@
+<h2>Users</h2>
+
+<% unless @users.blank? -%>
+	<% @users.each do |user| -%>
+		<div id="users">
+			<div id="<%= dom_id(user) %>">
+				<p>
+					<%= link_to h(user.name), profile_path(user) %> &middot;
+					<%= link_to 'Send friend request', friendships_path(:relation_id => user, :return_to => profiles_path), :method => :post,
+		    	:confirm => "Are you sure you want to send a friend request to this user?" %> &middot;
+					<%= link_to 'Banlist user', banships_path(:relation_id => user, :return_to => profiles_path), :method => :post,
+		    	:confirm => "Are you sure you want to put this user to your banlist?" %>
+				</p>
+			</div>
+		</div>
+	<% end -%>
+<% else -%>
+	<div>
+		<p class='empty'>
+			This site does not have any verified users.
+		</p>
+	</div>
+<% end -%>
