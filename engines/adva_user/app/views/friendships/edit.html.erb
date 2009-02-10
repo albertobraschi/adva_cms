@@ -1,0 +1,20 @@
+<h2>Friendship request</h2>
+
+<% unless @friendship.accepted? -%>
+	<% form_for :friendship, @friendship, :url => friendship_path(@friendship), :html => {:method => :put} do |f| %>
+		<p>
+			<%= @friendship.user.name %> has made a friendship request to you.
+		</p>
+	
+		<p>
+			Accept: 	<%= radio_button_tag :confirmation, Friendship::ACCEPTED %>
+			Decline: 	<%= radio_button_tag :confirmation, Friendship::DECLINED %>
+		</p>
+	
+		<%= f.submit 'Save' %>
+	<% end -%>
+<% else -%>
+	<p id='non-pending_friendship'>
+		You have already approved or declined this friendship request.
+	</p>
+<% end -%>

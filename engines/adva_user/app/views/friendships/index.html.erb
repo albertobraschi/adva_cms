@@ -1,0 +1,19 @@
+<h2>Your friendships</h2>
+
+<% unless @friendships.blank? -%>
+	<% @friendships.each do |friendship| -%>
+	
+	<div id="<%= dom_id(friendship) %>">
+		<p>
+			Friendship: <%= friendship.relation.name %>
+			<%= link_to 'End friendship', friendship_path(friendship), :id => dom_id(friendship) + '_delete', :method => :delete,
+		    :confirm => "Are you sure you want to end this friendship?" %>
+		</p>
+	</div>
+	
+	<% end -%>
+<% else -%>
+	<p>
+		You do not have any friendships.
+	</p>
+<% end -%>
