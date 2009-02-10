@@ -16,24 +16,31 @@ class Test::Unit::TestCase
     end
   end
   
-  share :a_user_with_relationship do
+  share :a_user_with_friendship do
     before do
       @user = User.find_by_first_name('a user')
-      @relationship = @user.relationships.first
+      @friendship = @user.friendships.first
     end
   end
   
-  share :accepted_relationship do
+  share :a_user_with_banship do
     before do
-      @relationship.request_accept
+      @user = User.find_by_first_name('a user')
+      @banship = @user.banships.first
     end
   end
   
-  share :cancelled_relationship do
+  share :accepted_friendship do
     before do
-      user      = @relationship.user
-      relation  = @relationship.relation
-      Relationship.find_by_user_id_and_relation_id(relation, user).delete
+      @friendship.request_accept
+    end
+  end
+  
+  share :cancelled_friendship do
+    before do
+      user      = @friendship.user
+      relation  = @friendship.relation
+      Friendship.find_by_user_id_and_relation_id(relation, user).delete
     end
   end
   

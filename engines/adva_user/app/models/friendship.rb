@@ -1,0 +1,3 @@
+class Friendship < Relationship
+  
+end

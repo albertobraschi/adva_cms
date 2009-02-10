@@ -1,0 +1,19 @@
+<h2>Your banlist</h2>
+
+<% unless @banships.blank? -%>
+	<% @banships.each do |banship| -%>
+	
+	<div id="<%= dom_id(banship) %>">
+		<p>
+			Banned user: <%= banship.relation.name %>
+			<%= link_to 'Remove the ban', banship_path(banship), :id => dom_id(banship) + '_delete', :method => :delete,
+		    :confirm => "Are you sure you want to remove this ban?" %>
+		</p>
+	</div>
+	
+	<% end -%>
+<% else -%>
+	<p>
+		You do not have any banned users on your banlist.
+	</p>
+<% end -%>
