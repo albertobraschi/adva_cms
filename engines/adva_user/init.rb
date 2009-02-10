@@ -18,4 +18,3 @@ ActiveSupport::Dependencies.load_once_paths -= ActiveSupport::Dependencies.load_
 
 Event.observers << UserMailer
 Event.observers << PasswordMailer
-Event.observers << FriendshipMailer
