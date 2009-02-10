@@ -82,7 +82,7 @@
 #         act! { request_to :post, @collection_path }
 #         it_assigns :user
 #         it_guards_permissions :create, :user
-#
+# 
 #         if scope.blank?
 #           it "instantiates a new user from User" do
 #             User.should_receive(:new).and_return @user

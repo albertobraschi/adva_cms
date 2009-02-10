@@ -14,6 +14,7 @@ class BanshipsControllerTest < ActionController::TestCase
     
     it_assigns :banships
     it_renders_template 'banships/index'
+    it_cache_page_with_references :index, :track => ['@banships']
   end
   
   describe "POST to create" do
@@ -23,6 +24,7 @@ class BanshipsControllerTest < ActionController::TestCase
     it_assigns_flash_cookie :notice => :not_nil
     it_redirects_to { banships_path }
     it_triggers_event :banship_created
+    it_sweeps_page_cache :by_reference => :banship
   end
   
   describe "POST to create, with invalid params" do
@@ -32,6 +34,7 @@ class BanshipsControllerTest < ActionController::TestCase
     it_assigns_flash_cookie :error => :not_nil
     it_redirects_to { banships_path }
     it_does_not_trigger_any_event
+    it_does_not_sweep_page_cache
   end
   
   describe "DELETE to destroy" do
@@ -41,6 +44,7 @@ class BanshipsControllerTest < ActionController::TestCase
     it_assigns_flash_cookie :notice => :not_nil
     it_redirects_to { banships_path }
     it_triggers_event :banship_removed
+    it_sweeps_page_cache :by_reference => :banship
   end
   
   def default_params

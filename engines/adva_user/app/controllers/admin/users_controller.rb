@@ -6,7 +6,9 @@ class Admin::UsersController < Admin::BaseController
   filter_parameter_logging :password
 
   helper_method :collection_path, :member_path, :new_member_path, :edit_member_path
-
+  
+  cache_sweeper :user_sweeper, :only => [:create, :update, :destroy]
+  
   guards_permissions :user
 
   def index

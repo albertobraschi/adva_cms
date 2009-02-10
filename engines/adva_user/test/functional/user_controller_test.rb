@@ -34,6 +34,7 @@ class UserControllerTest < ActionController::TestCase
       it_saves :user
       it_triggers_event :user_registered
       it_triggers_event :user_created
+      it_sweeps_page_cache :by_reference => :user
       
       it_renders :template, :verification_sent do
         has_text 'sucessfully registered'
@@ -54,6 +55,7 @@ class UserControllerTest < ActionController::TestCase
       it_renders :template, :new
       it_assigns_flash_cookie :error => :not_nil
       it_does_not_trigger_any_event
+      it_does_not_sweep_page_cache
     end
   end
   
@@ -68,6 +70,7 @@ class UserControllerTest < ActionController::TestCase
     
         it_triggers_event :user_verified
         it_assigns_flash_cookie :notice => :not_nil
+        it_sweeps_page_cache :by_reference => :user
         # FIXME it_redirects_to where?
       end
 
@@ -76,6 +79,7 @@ class UserControllerTest < ActionController::TestCase
     
         it_does_not_trigger_any_event
         it_assigns_flash_cookie :error => :not_nil
+        it_does_not_sweep_page_cache
         # FIXME it_redirects_to where?
       end
     end
@@ -108,6 +112,7 @@ class UserControllerTest < ActionController::TestCase
       it_redirects_to { '/' }
       it_assigns_flash_cookie :notice => :not_nil
       it_triggers_event :user_deleted
+      it_sweeps_page_cache :by_reference => :user
     end
   end
 end

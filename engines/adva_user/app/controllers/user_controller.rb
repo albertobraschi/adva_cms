@@ -3,6 +3,8 @@ class UserController < BaseController
   renders_with_error_proc :below_field
   filter_parameter_logging :password
 
+  cache_sweeper :user_sweeper, :only => [:create, :verify, :destroy]
+  
   layout 'simple'
 
   def new

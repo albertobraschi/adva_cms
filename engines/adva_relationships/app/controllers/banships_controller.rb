@@ -3,6 +3,9 @@ class BanshipsController < BaseController
   before_filter :set_banship,  :only => :destroy
   before_filter :set_user,     :only => :create
   
+  caches_page_with_references :index, :track => ['@banships']
+  cache_sweeper :relationship_sweeper, :only => [:create, :destroy]
+    
   def index
     @banships = current_user.banships
   end

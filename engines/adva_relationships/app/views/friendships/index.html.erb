@@ -17,3 +17,22 @@
 		You do not have any friendships.
 	</p>
 <% end -%>
+
+<h2>Pending friendship requests</h2>
+
+<% unless @friendships_pending.blank? -%>
+	<% @friendships_pending.each do |friendship_pending| -%>
+	
+	<div id="<%= dom_id(friendship_pending) %>">
+		<p>
+			Friendship: <%= friendship_pending.relation.name %>
+			<%= link_to 'Confirmate', edit_friendship_path(friendship_pending), :id => dom_id(friendship_pending) + '_confirm' %>
+		</p>
+	</div>
+	
+	<% end -%>
+<% else -%>
+	<p>
+		You do not have any pending friendships.
+	</p>
+<% end -%>

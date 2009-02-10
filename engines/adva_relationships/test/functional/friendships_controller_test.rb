@@ -12,8 +12,9 @@ class FriendshipsControllerTest < ActionController::TestCase
   describe "GET to index" do
     action { get :index }
     
-    it_assigns :friendships
+    it_assigns :friendships, :friendships_pending
     it_renders_template 'friendships/index'
+    it_cache_page_with_references :trach => ['@friendships', '@friendships_pending']
   end
   
   describe "GET to edit" do
@@ -38,6 +39,7 @@ class FriendshipsControllerTest < ActionController::TestCase
     it_assigns_flash_cookie :notice => :not_nil
     it_redirects_to { friendships_path }
     it_triggers_event :friendship_requested
+    it_sweeps_page_cache :by_reference => :friendship
   end
   
   describe "POST to create, with invalid params" do
@@ -47,6 +49,7 @@ class FriendshipsControllerTest < ActionController::TestCase
     it_assigns_flash_cookie :error => :not_nil
     it_redirects_to { friendships_path }
     it_does_not_trigger_any_event
+    it_does_not_sweep_page_cache
   end
   
   describe "POST to update, with accepted confirmation" do
@@ -57,6 +60,7 @@ class FriendshipsControllerTest < ActionController::TestCase
     it_assigns_flash_cookie :notice => :not_nil
     it_redirects_to { friendships_path }
     it_triggers_event :friendship_accepted
+    it_sweeps_page_cache :by_reference => :friendship
   end
   
   describe "POST to update, with accepted confirmation, but with already accepted friendship" do
@@ -68,6 +72,7 @@ class FriendshipsControllerTest < ActionController::TestCase
       it_assigns_flash_cookie :error => :not_nil
       it_renders_template 'friendships/edit'
       it_does_not_trigger_any_event
+      it_does_not_sweep_page_cache
     end
   end
   
@@ -80,6 +85,7 @@ class FriendshipsControllerTest < ActionController::TestCase
       it_assigns_flash_cookie :error => :not_nil
       it_renders_template 'friendships/edit'
       it_does_not_trigger_any_event
+      it_does_not_sweep_page_cache
     end
   end
   
@@ -91,6 +97,7 @@ class FriendshipsControllerTest < ActionController::TestCase
     it_assigns_flash_cookie :notice => :not_nil
     it_redirects_to { friendships_path }
     it_triggers_event :friendship_declined
+    it_sweeps_page_cache :by_reference => :friendship
   end
   
   describe "POST to update, with declined confirmation, but with already accepted friendship" do
@@ -102,6 +109,7 @@ class FriendshipsControllerTest < ActionController::TestCase
       it_assigns_flash_cookie :error => :not_nil
       it_renders_template 'friendships/edit'
       it_does_not_trigger_any_event
+      it_does_not_sweep_page_cache
     end
   end
   
@@ -114,6 +122,7 @@ class FriendshipsControllerTest < ActionController::TestCase
       it_assigns_flash_cookie :error => :not_nil
       it_renders_template 'friendships/edit'
       it_does_not_trigger_any_event
+      it_does_not_sweep_page_cache
     end
   end
   
@@ -125,6 +134,7 @@ class FriendshipsControllerTest < ActionController::TestCase
     it_assigns_flash_cookie :error => :not_nil
     it_renders_template 'friendships/edit'
     it_does_not_trigger_any_event
+    it_does_not_sweep_page_cache
   end
   
   describe "DELETE to destroy" do
@@ -134,6 +144,7 @@ class FriendshipsControllerTest < ActionController::TestCase
     it_assigns_flash_cookie :notice => :not_nil
     it_redirects_to { friendships_path }
     it_triggers_event :friendship_ended
+    it_sweeps_page_cache :by_reference => :friendship
   end
   
   def friendship_request

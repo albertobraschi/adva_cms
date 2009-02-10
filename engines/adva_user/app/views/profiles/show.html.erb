@@ -2,7 +2,9 @@
 
 <% if current_user == @user -%>
 	<p>
-		<%= link_to 'My messages', messages_path %>
+		<%= link_to 'My messages', messages_path %> &middot;
+		<%= link_to 'Friendslist', friendships_path %> &middot;
+		<%= link_to 'Banlist', banships_path %>
 	</p>
 <% end -%>
 

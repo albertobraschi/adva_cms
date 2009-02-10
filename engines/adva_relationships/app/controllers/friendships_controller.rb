@@ -4,8 +4,12 @@ class FriendshipsController < BaseController
   before_filter :set_user,        :only => :create
   before_filter :get_request,     :only => [:edit, :update]
   
+  caches_page_with_references :index, :track => ['@friendships', '@friendships_pending']
+  cache_sweeper :relationship_sweeper, :only => [:create, :update, :destroy]
+  
   def index
     @friendships = current_user.friendships.accepted
+    @friendships_pending = current_user.friendships.pending
   end
   
   def create
