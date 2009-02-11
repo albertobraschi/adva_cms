@@ -2,7 +2,7 @@ class ProfilesController < BaseController
   
   before_filter :set_user, :only => :show
   
-  caches_page_with_references :index, :show, :track => ['@user', '@users']
+  caches_page_with_references :index, :track => ['@user', '@users']
 
   def index
     @users  = @site.users.verified

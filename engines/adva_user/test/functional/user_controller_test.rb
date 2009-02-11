@@ -44,6 +44,10 @@ class UserControllerTest < ActionController::TestCase
         @site.users.should include(assigns(:user))
       end
       
+      it "creates a profile for the user" do
+        assigns(:user).profile.should_not be_nil
+      end
+      
       expect "sends a validation email to the user" do
         # FIXME can't get this to behave ...
         # mock(UserMailer).deliver_signup_verification_email(anything, anything)

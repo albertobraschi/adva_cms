@@ -5,8 +5,10 @@ class User < ActiveRecord::Base
   #  acts_as_authenticated_user :token_with => 'Authentication::SingleToken',
   #                             :authenticate_with => nil
   
-  named_scope :verified, :conditions => ['verified_at NOT NULL']
+  named_scope :verified,      :conditions => "users.verified_at IS NOT NULL"
+  named_scope :with_profile,  :include => :profile, :conditions => "profiles.id IS NOT NULL"
   
+  has_one  :profile
   has_many :sites, :through => :memberships
   has_many :memberships, :dependent => :delete_all
   has_many :subscriptions, :dependent => :destroy
@@ -74,6 +76,15 @@ class User < ActiveRecord::Base
     def anonymous(attributes = {})
       attributes[:anonymous] = true
       new attributes
+    end
+  end
+
+  def profile_attributes=(profile_attributes)
+    if self.profile
+      # OPTIMIZE: maybe we can optimize this?
+      self.profile.update_attributes(profile_attributes)
+    else
+      self.profile = Profile.new(profile_attributes)
     end
   end
 

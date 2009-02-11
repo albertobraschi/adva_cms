@@ -13,6 +13,8 @@ class UserController < BaseController
 
   def create
     @user = @site.users.build params[:user]
+    @user.build_profile
+    
     if @site.save
       trigger_events @user, :registered
       render :action => 'verification_sent'

@@ -23,6 +23,8 @@ class Admin::UsersController < Admin::BaseController
 
   def create
     @user = @site ? @site.users.build : User.new
+    @user.build_profile
+    
     if @user.update_attributes(params[:user])
       @user.verify! # TODO hu??
       trigger_events @user

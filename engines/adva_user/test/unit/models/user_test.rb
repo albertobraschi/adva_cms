@@ -13,7 +13,11 @@ class UserTest < ActiveSupport::TestCase
   end
   
   # ASSOCIATIONS
-
+  
+  test "has one profile" do
+    @user.should have_one(:profile)
+  end
+  
   test "has many sites" do
     @user.should have_many(:sites)
   end
