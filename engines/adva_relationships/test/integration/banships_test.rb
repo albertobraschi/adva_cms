@@ -28,7 +28,7 @@ module IntegrationTests
     end
     
     def visit_banships
-      get banships_path
+      get profile_banships_path(@user)
     end
     
     def display_banship_index_page

@@ -65,11 +65,11 @@ module IntegrationTests
     end
     
     def visit_friendships
-      get friendships_path
+      get profile_friendships_path(@user)
     end
     
     def visit_confirmation_page
-      get edit_friendship_path(@friendship)
+      get edit_profile_friendship_path(@user, @friendship)
       assert_template 'friendships/edit'
     end
     

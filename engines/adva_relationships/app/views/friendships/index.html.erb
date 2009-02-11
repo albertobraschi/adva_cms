@@ -6,7 +6,7 @@
 	<div id="<%= dom_id(friendship) %>">
 		<p>
 			Friendship: <%= friendship.relation.name %>
-			<%= link_to 'End friendship', friendship_path(friendship), :id => dom_id(friendship) + '_delete', :method => :delete,
+			<%= link_to 'End friendship', profile_friendship_path(friendship.user, friendship), :id => dom_id(friendship) + '_delete', :method => :delete,
 		    :confirm => "Are you sure you want to end this friendship?" %>
 		</p>
 	</div>
@@ -26,7 +26,7 @@
 	<div id="<%= dom_id(friendship_pending) %>">
 		<p>
 			Friendship: <%= friendship_pending.relation.name %>
-			<%= link_to 'Confirmate', edit_friendship_path(friendship_pending), :id => dom_id(friendship_pending) + '_confirm' %>
+			<%= link_to 'Confirmate', edit_profile_friendship_path(friendship_pending.user, friendship_pending), :id => dom_id(friendship_pending) + '_confirm' %>
 		</p>
 	</div>
 	

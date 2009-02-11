@@ -1,9 +1,9 @@
 <h2>Friendship request</h2>
 
 <% unless @friendship.accepted? -%>
-	<% form_for :friendship, @friendship, :url => friendship_path(@friendship), :html => {:method => :put} do |f| %>
+	<% form_for :friendship, @friendship, :url => profile_friendship_path(@friendship.relation, @friendship), :html => {:method => :put} do |f| %>
 		<p>
-			<%= @friendship.user.name %> has made a friendship request to you.
+			<%= @friendship.relation.name %> has made a friendship request to you.
 		</p>
 	
 		<p>

@@ -17,7 +17,7 @@ class BanshipsController < BaseController
     else
       flash[:error] = "Adding #{@user.name} to the banlist failed."
     end
-    redirect_to (params[:return_to] || banships_path)
+    redirect_to (params[:return_to] || profile_banships_path(current_user))
   end
   
   def destroy
@@ -27,7 +27,7 @@ class BanshipsController < BaseController
     else
       flash[:error] = "The ban could not be removed!"
     end
-    redirect_to (params[:return_to] || banships_path)
+    redirect_to (params[:return_to] || profile_banships_path(current_user))
   end
   
   protected
@@ -36,7 +36,7 @@ class BanshipsController < BaseController
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "The ban you requested could not be found."
       write_flash_to_cookie # TODO make around filter or something
-      redirect_to (params[:return_to] || banships_path)
+      redirect_to (params[:return_to] || profile_banships_path(current_user))
     end
     
     def get_request
@@ -44,7 +44,7 @@ class BanshipsController < BaseController
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "The ban you requested could not be found."
       write_flash_to_cookie # TODO make around filter or something
-      redirect_to (params[:return_to] || banships_path)
+      redirect_to (params[:return_to] || profile_banships_path(current_user))
     end
     
     def set_user
@@ -52,6 +52,6 @@ class BanshipsController < BaseController
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "The user you wanted to ban does not exist anymore!"
       write_flash_to_cookie # TODO make around filter or something
-      redirect_to (params[:return_to] || banships_path)
+      redirect_to (params[:return_to] || profile_banships_path(current_user))
     end
 end

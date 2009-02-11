@@ -23,7 +23,7 @@ class FriendshipMailer < ActionMailer::Base
     recipient = friendship.user
     
     recipients recipient.email
-    from system_email(friendship_path(friendship))
+    from system_email(profile_friendship_path(recipient, friendship))
     subject 'Your friendship request was accepted!'
     body :user_requested => friendship.user, :user_accepted => friendship.relation
   end
@@ -32,7 +32,7 @@ class FriendshipMailer < ActionMailer::Base
     recipient = friendship.user
     
     recipients recipient.email
-    from system_email(friendship_path(friendship))
+    from system_email(profile_friendship_path(recipient, friendship))
     subject 'Your friendship request was declined!'
     body :user_requested => friendship.user, :user_declined => friendship.relation
   end
@@ -41,17 +41,17 @@ class FriendshipMailer < ActionMailer::Base
     recipient = friendship.relation
     
     recipients recipient.email
-    from system_email(friendship_path(friendship))
+    from system_email(profile_friendship_path(recipient, friendship))
     subject 'You have a request for a friendship!'
     body :user_requested => friendship.user, :recipient => friendship.relation,
-         :confirmation_url => edit_friendship_path(friendship)
+         :confirmation_url => edit_profile_friendship_path(recipient, friendship)
   end
 
   def friendship_ended_email(friendship, user)
     recipient = friendship.user == user ? friendship.relation : friendship.user
     
     recipients recipient
-    from system_email(friendship_path(friendship))
+    from system_email(profile_friendship_path(recipient, friendship))
     subject 'One of your friendships has brokeup!'
     body :user_ended => user, :recipient => recipient
   end

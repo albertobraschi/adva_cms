@@ -22,7 +22,7 @@ class BanshipsControllerTest < ActionController::TestCase
     
     it_assigns :user => User
     it_assigns_flash_cookie :notice => :not_nil
-    it_redirects_to { banships_path }
+    it_redirects_to { profile_banships_path(current_user) }
     it_triggers_event :banship_created
     it_sweeps_page_cache :by_reference => :banship
   end
@@ -32,7 +32,7 @@ class BanshipsControllerTest < ActionController::TestCase
     
     it_assigns :user => User
     it_assigns_flash_cookie :error => :not_nil
-    it_redirects_to { banships_path }
+    it_redirects_to { profile_banships_path(current_user) }
     it_does_not_trigger_any_event
     it_does_not_sweep_page_cache
   end
@@ -42,13 +42,17 @@ class BanshipsControllerTest < ActionController::TestCase
     
     it_assigns :banship
     it_assigns_flash_cookie :notice => :not_nil
-    it_redirects_to { banships_path }
+    it_redirects_to { profile_banships_path(current_user) }
     it_triggers_event :banship_removed
     it_sweeps_page_cache :by_reference => :banship
   end
   
   def default_params
     { :site_id => @site.id }
+  end
+  
+  def current_user
+    @user
   end
   
   def new_banship_params

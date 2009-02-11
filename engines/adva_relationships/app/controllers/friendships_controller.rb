@@ -19,7 +19,7 @@ class FriendshipsController < BaseController
     else
       flash[:error] = "Sending a friend request to #{@user.name} failed."
     end
-    redirect_to (params[:return_to] || friendships_path)
+    redirect_to (params[:return_to] || profile_friendships_path(current_user))
   end
   
   def edit
@@ -38,7 +38,7 @@ class FriendshipsController < BaseController
     if @friendship.request_accept
       trigger_event @friendship, :accepted
       flash[:notice] = "The friend request was successfully accepted!"
-      redirect_to (params[:return_to] || friendships_path)
+      redirect_to (params[:return_to] || profile_friendships_path(current_user))
     else
       flash[:error] = "The friend request could not be accepted!"
       render :action => 'edit'
@@ -49,7 +49,7 @@ class FriendshipsController < BaseController
     if @friendship.request_decline
       trigger_event @friendship, :declined
       flash[:notice] = "The friend request was successfully declined!"
-      redirect_to (params[:return_to] || friendships_path)
+      redirect_to (params[:return_to] || profile_friendships_path(current_user))
     else
       flash[:error] = "The friend request could not be declined!"
       render :action => 'edit'
@@ -63,7 +63,7 @@ class FriendshipsController < BaseController
     else
       flash[:error] = "The friend request could not be deleted!"
     end
-    redirect_to (params[:return_to] || friendships_path)
+    redirect_to (params[:return_to] || profile_friendships_path(current_user))
   end
   
   protected
@@ -72,7 +72,7 @@ class FriendshipsController < BaseController
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "The friendship you requested could not be found."
       write_flash_to_cookie # TODO make around filter or something
-      redirect_to (params[:return_to] || friendships_path)
+      redirect_to (params[:return_to] || profile_friendships_path(current_user))
     end
     
     def get_request
@@ -80,7 +80,7 @@ class FriendshipsController < BaseController
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "The friendship you requested could not be found."
       write_flash_to_cookie # TODO make around filter or something
-      redirect_to (params[:return_to] || friendships_path)
+      redirect_to (params[:return_to] || profile_friendships_path(current_user))
     end
     
     def set_user
@@ -88,6 +88,6 @@ class FriendshipsController < BaseController
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "The user you wanted to send the friend request does not exist anymore!"
       write_flash_to_cookie # TODO make around filter or something
-      redirect_to (params[:return_to] || friendships_path)
+      redirect_to (params[:return_to] || profile_friendships_path(current_user))
     end
 end
