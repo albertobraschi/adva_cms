@@ -2,18 +2,10 @@
 <div id="user_profile">
 	<div id="<%= dom_id(@user) + '_profile_private' %>" style="display: none;">
 		<p>
-			<%= link_to 'My messages', messages_path %> &middot;
-			<%= link_to 'Friendslist', profile_friendships_path(@user) %> &middot;
-			<%= link_to 'Banlist', profile_banships_path(@user) %>
+			<%= link_to 'My messages', messages_path %>
 		</p>
-	</div>
-
-	<div id="profile_relations" style="display: none;">
 		<p>
-			<%= link_to 'Send a friend request', profile_friendships_path(@user, :relation_id => @user, :return_to => profile_path(@user)), :method => :post,
-			:confirm => "Are you sure you want to send a friend request to this user?" %> &middot;
-			<%= link_to 'Ban user', profile_banships_path(@user, :relation_id => @user, :return_to => profile_path(@user)), :method => :post,
-			:confirm => "Are you sure you want to put this user to your banlist?" %>
+			Security note: Please note that user profiles are not private and can be viewable by any user.
 		</p>
 	</div>
 </div>
