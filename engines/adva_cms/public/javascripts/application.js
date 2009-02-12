@@ -32,6 +32,23 @@ var LoginLinks = {
 	}
 }
 
+var ProfileLinks = {
+	init: function() {
+		var user_id = Cookie.get('uid');
+		
+		if (user_id) {
+			try {
+				if ($('user_' + user_id + '_profile_private')) {
+					$('user_' + user_id + '_profile_private').show();
+					$('profile_relations').hide();
+				} else {
+					$('profile_relations').show();
+				}
+			} catch(err) {}
+		}
+	}
+}
+
 /* Date functions */
 
 Date.UTCNow = function() {
@@ -123,6 +140,9 @@ Event.onReady(function() {
   }
 	if($('logout_links')) {
 		LoginLinks.init();
+	}
+	if($('user_profile')) {
+		ProfileLinks.init();
 	}
   // parse all microformatted dates and re-format them as time distance
   $$('abbr.datetime').each(function(abbr) {

@@ -22,7 +22,7 @@ class ProfilesControllerTest < ActionController::TestCase
     
     it_assigns :user
     it_renders_template 'profiles/show'
-    #it_caches_the_page :track => ['@users', '@user']
+    it_caches_the_page :track => ['@users', '@user']
   end
   
   def default_params
